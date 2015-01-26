@@ -8,10 +8,9 @@ Blake Merryman
 
 Created January 5, 2015
 
-This script application creates a new log file for use in Blake Merryman's 
-Daily Log folder. It accepts no input and outputs a properly formatted
-(including basic boiler plate & correctly named file) markdown (.md) file
-in the correct directory.
+This script application creates a new log file for each day stored in a user specified directory.
+It has multiple user options for various functionality (like appending to current log or listing
+to the console).
 
 */
 
@@ -118,7 +117,7 @@ let fullPathToFile = "\(logDirectory)/\(logFilename)"
 
 // MARK: - Option: Print Help File To Console
 
-let help = Option(longFlag: "--help", shortFlag: "-h", completionHandler: { (result: Result!, error: NSError!) in 
+let help = Option(longFlag: "--help", shortFlag: "-h") { (result: Result!, error: NSError!) in 
 
     if error != nil {
         println("Error performing completion handler! \(error)")
@@ -130,12 +129,12 @@ let help = Option(longFlag: "--help", shortFlag: "-h", completionHandler: { (res
         printHelpTask.arguments = [pathToHelpFile]
         printHelpTask.launch()
     }
-})
+}
 
 
 // MARK: - Option: Open Current Log File
 
-let open = Option(longFlag: "--open", shortFlag: "-o", completionHandler: { (result: Result!, error: NSError!) in 
+let open = Option(longFlag: "--open", shortFlag: "-o") { (result: Result!, error: NSError!) in 
 
     if error != nil {
         println("Error performing completion handler! \(error)")
@@ -143,12 +142,12 @@ let open = Option(longFlag: "--open", shortFlag: "-o", completionHandler: { (res
     else {
         NSWorkspace.sharedWorkspace().openFile("\(logDirectory)/\(logFilename)", withApplication: textEditor, andDeactivate: true)
     }
-})
+}
 
 
 // MARK: - Option: List Current Log to Console
 
-let list = Option(longFlag: "--list", shortFlag: "-l", completionHandler: { (result: Result!, error: NSError!) in 
+let list = Option(longFlag: "--list", shortFlag: "-l") { (result: Result!, error: NSError!) in 
 
     if error != nil {
         println("Error performing completion handler! \(error)")
@@ -160,24 +159,44 @@ let list = Option(longFlag: "--list", shortFlag: "-l", completionHandler: { (res
         printHelpTask.arguments = [fullPathToFile]
         printHelpTask.launch()
     }
-})
+}
 
 
 // MARK: - Option: Append User Input to Current Log File
 
-let append = Option(longFlag: "--append", shortFlag: "-a", completionHandler: { (result: Result!, error: NSError!) in
+let append = Option(longFlag: "--append", shortFlag: "-a") { (result: Result!, error: NSError!) in
     
     if error != nil {
         println("Error performing completion handler! \(error)")
     } 
     else {
-        println("Test - Appending") 
+
+        if let arguments = result.arguments {
+            
+            var newLogEntry = "\n" // front padding
+
+            for argument in arguments {
+                newLogEntry += argument + " "
+            }
+
+            newLogEntry += "\n" // end padding
+
+            // Get current content of file & append...
+            var readError: NSError? = nil
+            var fileContents = NSString(contentsOfFile: fullPathToFile, encoding: NSUTF8StringEncoding, error: &readError)! as String
+
+            fileContents += newLogEntry
+
+            // Write it all back to the disk!
+            var writeError: NSError? = nil
+            (fileContents as NSString).writeToFile(fullPathToFile, atomically: true, encoding: NSUTF8StringEncoding, error: &writeError)
+        }
     }
-})
+}
 
 
 // ----------------------------------------------------------------------------------------------------
-// MARK: - Process User Input
+// MARK: - Load Options & Process User Input
 
 if logIsReady {
 

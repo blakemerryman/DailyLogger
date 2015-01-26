@@ -1,0 +1,15 @@
+Blake-SD-MBR:DailyLogger blake$ mylog -a "I think that I have this log script working!"
+-bash: !": event not found
+Blake-SD-MBR:DailyLogger blake$ mylog mylog -a "I think that I have this log script working\!"
+DailyLogger: Arguments processed!
+Blake-SD-MBR:DailyLogger blake$ mylog -l
+DailyLogger: Arguments processed!
+# Daily Log of Blake Merryman
+  *Monday, January 26, 2015*
+
+--------------------------------------------------
+
+@idea - documentation manager that keeps apple docs up to date (keeping any notes/annotations/bookmarks/etc)... html? 
+
+mylog I think that I have this log script working\! 
+Blake-SD-MBR:DailyLogger blake$ 

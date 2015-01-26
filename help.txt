@@ -1,13 +1,30 @@
-Daily Logger Help
------------------
 
-List of options:
+    Daily Logger Help
+    ------------------------------------------------------------
+    List of options:
 
-(no options)  : Opens today's log in your prefered text editor.
---help   | -h : Prints out this document to the console for reference.
---list   | -l : Lists today's log to the console.
---append | -a : Appends the trailing arguments to today's log as its own entry. Please escape !-marks. Prefer to enclose entry in double quotes ("...").
+    --append | -a : Appends the trailing argument to today's log as its own entry. 
+                    Escape exclamation marks (i.e. \!) and enclose entry in double quotes ("...").
+    --help   | -h : Prints out this document to the console for reference.
+    --list   | -l : Lists today's log to the console.
+    --open   | -o : Opens today's log in your prefered text editor.
 
-Usage:
+    
+    Usage:
 
-(in progress...)
+    (in progress...)
+
+
+    Tips & Tricks:
+
+    - You can pipe the --list command into the grep command to search today's log.
+
+
+    ------------------------------------------------------------
+
+    This utility was built and is maintained by Blake Merryman. 
+    For more information or to contact me, find me on Github:
+    https://github.com/blakemerryman
+
+    ------------------------------------------------------------
+

@@ -1,0 +1,13 @@
+Daily Logger Help
+-----------------
+
+List of options:
+
+(no options)  : Opens today's log in your prefered text editor.
+--help   | -h : Prints out this document to the console for reference.
+--list   | -l : Lists today's log to the console.
+--append | -a : Appends the trailing arguments to today's log as its own entry. Please escape !-marks. Prefer to enclose entry in double quotes ("...").
+
+Usage:
+
+(in progress...)

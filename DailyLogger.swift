@@ -111,11 +111,12 @@ let fullPathToFile = "\(logDirectory)/\(logFilename)"
 
 
 // ----------------------------------------------------------------------------------------------------
-
-
 // MARK: - Define Options for User Input
+// Each option has a long- & short- flag value along with a completion handler to handle its results 
+// (and any errors) processed from user input.
 
-// Each option has a long- & short- flag value along with a completion handler to handle its results (and any errors) processed from user input.
+
+// MARK: - Option: Print Help File To Console
 
 let help = Option(longFlag: "--help", shortFlag: "-h", completionHandler: { (result: Result!, error: NSError!) in 
 
@@ -131,6 +132,9 @@ let help = Option(longFlag: "--help", shortFlag: "-h", completionHandler: { (res
     }
 })
 
+
+// MARK: - Option: Open Current Log File
+
 let open = Option(longFlag: "--open", shortFlag: "-o", completionHandler: { (result: Result!, error: NSError!) in 
 
     if error != nil {
@@ -141,15 +145,25 @@ let open = Option(longFlag: "--open", shortFlag: "-o", completionHandler: { (res
     }
 })
 
+
+// MARK: - Option: List Current Log to Console
+
 let list = Option(longFlag: "--list", shortFlag: "-l", completionHandler: { (result: Result!, error: NSError!) in 
 
     if error != nil {
         println("Error performing completion handler! \(error)")
     } 
     else {
-        println("Test - Listing") 
+        // Print the help file to the console using the cat command
+        let printHelpTask = NSTask()
+        printHelpTask.launchPath = "/bin/cat"
+        printHelpTask.arguments = [fullPathToFile]
+        printHelpTask.launch()
     }
 })
+
+
+// MARK: - Option: Append User Input to Current Log File
 
 let append = Option(longFlag: "--append", shortFlag: "-a", completionHandler: { (result: Result!, error: NSError!) in
     
@@ -163,8 +177,6 @@ let append = Option(longFlag: "--append", shortFlag: "-a", completionHandler: { 
 
 
 // ----------------------------------------------------------------------------------------------------
-
-
 // MARK: - Process User Input
 
 if logIsReady {

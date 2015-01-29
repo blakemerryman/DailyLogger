@@ -16,7 +16,7 @@ directory. It has multiple user options for various functionality
 
 import Foundation
 import AppKit
-import CLParse
+import BMParse
 
 
 

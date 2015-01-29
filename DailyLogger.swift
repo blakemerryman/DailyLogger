@@ -8,9 +8,9 @@ Blake Merryman
 
 Created January 5, 2015
 
-This script application creates a new log file for each day stored in a user specified directory.
-It has multiple user options for various functionality (like appending to current log or listing
-to the console).
+This script creates a new log file for each day stored in a user specified 
+directory. It has multiple user options for various functionality
+(like appending to current log or listing to the console).
 
 */
 
@@ -19,20 +19,16 @@ import AppKit
 import CLParse
 
 
+
 // MARK: - Personal Preferences
 
-// This log belongs to...
-let loggersName = "Blake Merryman"
-
-// Edit this log in the following application...
+let authorName = "Blake Merryman"
 let textEditor = "Sublime Text 3.app"
-
-// Store this log in the following directory (relative to current user's home directory)...
 let logDirectory = NSHomeDirectoryForUser(NSUserName()).stringByAppendingPathComponent("Dropbox/DailyLog")
 let pathToHelpFile = NSHomeDirectoryForUser(NSUserName()).stringByAppendingPathComponent("Dropbox/Developer/MyTools/DailyLogger") + "/help.txt"
 
+// TODO: Get path of this script so help.txt can be linked w/relative path
 
-// ----------------------------------------------------------------------------------------------------
 
 
 // MARK: - Utility Functions
@@ -98,20 +94,20 @@ func checkDirectoryAndCreateFileForFileManager(fileManager: NSFileManager, direc
 }
 
 
+
 // MARK: - Setting Up The Log File For Usage...
 
 let today       = NSDate()
 let logFilename = buildFileNameForDate(today)
-let logHeader   = buildLogHeader(author: loggersName, forDate: today)
+let logHeader   = buildLogHeader(author: authorName, forDate: today)
 let fileManager = NSFileManager.defaultManager()
 let logIsReady  = checkDirectoryAndCreateFileForFileManager(fileManager, directoryToCheck: logDirectory, fileToCreate: logFilename, withContents: logHeader)
 
 let fullPathToFile = "\(logDirectory)/\(logFilename)"
 
 
-// ----------------------------------------------------------------------------------------------------
 // MARK: - Define Options for User Input
-// Each option has a long- & short- flag value along with a completion handler to handle its results 
+// Each option has a long- & short- flag along with a completion handler to process its result
 // (and any errors) processed from user input.
 
 
